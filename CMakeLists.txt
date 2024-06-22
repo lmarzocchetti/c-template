@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.28)
 # set(CMAKE_C_COMPILER "/opt/homebrew/bin/gcc-14")
 # set(CMAKE_C_COMPILER "/opt/homebrew/opt/llvm/bin/clang")
 
-project(C-TEMPLATE C)
+project(c-template C)
 
 file(
         DOWNLOAD
