@@ -24,7 +24,7 @@ $ mv c-template your-project-name
 
 Set the project name in the CMakeLists.txt file:
 ```
-project(C-TEMPLATE C) -> project(your-project-name C)
+project(c-template C) -> project(your-project-name C)
 ```
 
 ## Build and Run
