@@ -7,8 +7,14 @@ These libraries are included (and easily swappable or removable):
 - STC: My favourite container library, not so big like GLib but definitely not a minimalistic option
 - sds: Simple library to support dynamic strings
 - mimalloc: Replacement to standard malloc. I have set this to NOT replace the standard malloc, but simply import and use it
+- raylib: Fairly simple OpenGL library for 2d/3d game development or graphics
+- GLib: Container (and much more) library. (Use if you need more abstraction like Objects, Async, etc)
+- Interface99: Macro library to have static and dynamic interfaces in C
+- Datatype99: Macro library to have sum types in C
 
 For now these are the only included libraries, but it can change in the future (suggestions are appreciated)
+
+Default Active Libraries -> STC, sds
 
 # Usage
 ## Setup
