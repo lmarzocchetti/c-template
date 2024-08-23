@@ -20,13 +20,16 @@ add_executable(${PROJECT_NAME} main.c)
 
 # CPMAddPackage() -> example CPMAddPackage("gh:nlohmann/json@3.10.5")
 CPMAddPackage("gh:stclib/STC#master")
-CPMAddPackage("gh:microsoft/mimalloc@2.1.7")
 CPMAddPackage("gh:antirez/sds#master")
-CPMAddPackage("gh:Hirrolot/Datatype99@1.6.4")
-CPMAddPackage("gh:Hirrolot/interface99@1.0.1")
+CPMAddPackage("gh:raysan5/raylib#master")
+#CPMAddPackage("gh:microsoft/mimalloc@2.1.7")
+#CPMAddPackage("gh:Hirrolot/Datatype99@1.6.4")
+#CPMAddPackage("gh:Hirrolot/interface99@1.0.1")
 
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W3)
+
+    # Missing macro limit 1 for MSVC
 else ()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wpedantic)
     
@@ -42,4 +45,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${sds_SOURCE_DIR})
 set(SDS_FILES ${sds_SOURCE_DIR}/sds.c ${sds_SOURCE_DIR}/sds.h)
 add_library(sds ${SDS_FILES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE stc mimalloc-static sds datatype99 interface99)
+target_link_libraries(${PROJECT_NAME} PRIVATE stc sds raylib) # mimalloc-static datatype99 interface99)
