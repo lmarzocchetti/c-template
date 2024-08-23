@@ -22,6 +22,7 @@ add_executable(${PROJECT_NAME} main.c)
 CPMAddPackage("gh:stclib/STC#master")
 CPMAddPackage("gh:antirez/sds#master")
 CPMAddPackage("gh:raysan5/raylib#master")
+#CPMAddPackage("gh:GNOME/glib#main")
 #CPMAddPackage("gh:microsoft/mimalloc@2.1.7")
 #CPMAddPackage("gh:Hirrolot/Datatype99@1.6.4")
 #CPMAddPackage("gh:Hirrolot/interface99@1.0.1")
@@ -45,4 +46,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${sds_SOURCE_DIR})
 set(SDS_FILES ${sds_SOURCE_DIR}/sds.c ${sds_SOURCE_DIR}/sds.h)
 add_library(sds ${SDS_FILES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE stc sds raylib) # mimalloc-static datatype99 interface99)
+# Glib
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLIB REQUIRED glib-2.0)
+include_directories(${GLIB_INCLUDE_DIRS})
+
+target_link_libraries(${PROJECT_NAME} PRIVATE stc sds) # raylib ${GLIB_LDFLAGS} mimalloc-static datatype99 interface99)
