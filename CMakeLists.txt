@@ -18,9 +18,10 @@ set(CMAKE_C_EXTENSIONS OFF)
 
 add_executable(${PROJECT_NAME} main.c)
 
-# CPMAddPackage() -> example CPMAddPackage("gh:nlohmann/json@3.10.5")
+# Packages to add with CPM 
 CPMAddPackage("gh:stclib/STC#master")
 CPMAddPackage("gh:antirez/sds#master")
+#CPMAddPackage("gh:ThrowTheSwitch/CException@1.3.4")
 #CPMAddPackage("gh:raysan5/raylib#master")
 #CPMAddPackage("gh:GNOME/glib#main")
 #CPMAddPackage("gh:microsoft/mimalloc@2.1.7")
@@ -28,8 +29,7 @@ CPMAddPackage("gh:antirez/sds#master")
 #CPMAddPackage("gh:Hirrolot/interface99@1.0.1")
 
 if (MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /W3)
-
+    target_compile_options(${PROJECT_NAME} PRIVATE /W3)  
     # Missing macro limit 1 for MSVC
 else ()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wpedantic)
@@ -46,9 +46,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${sds_SOURCE_DIR})
 set(SDS_FILES ${sds_SOURCE_DIR}/sds.c ${sds_SOURCE_DIR}/sds.h)
 add_library(sds ${SDS_FILES})
 
-# Glib
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLIB REQUIRED glib-2.0)
-include_directories(${GLIB_INCLUDE_DIRS})
+# CException library
+# target_include_directories(${PROJECT_NAME} PRIVATE ${cexception_SOURCE_DIR})
+# set(CEXCEPTION_FILES ${CException_SOURCE_DIR}/lib/CException.c ${CException_SOURCE_DIR}/lib/CException.h)
+# add_library(cexception ${CEXCEPTION_FILES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE stc sds) # raylib ${GLIB_LDFLAGS} mimalloc-static datatype99 interface99)
+# Glib
+# find_package(PkgConfig REQUIRED)
+# pkg_search_module(GLIB REQUIRED glib-2.0)
+# include_directories(${GLIB_INCLUDE_DIRS})
+
+target_link_libraries(${PROJECT_NAME} PRIVATE stc sds cexception) # cexception raylib ${GLIB_LDFLAGS} mimalloc-static datatype99 interface99)
