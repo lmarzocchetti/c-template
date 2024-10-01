@@ -11,6 +11,7 @@ These libraries are included (and easily swappable or removable):
 - GLib: Container (and much more) library. (Use if you need more abstraction like Objects, Async, etc)
 - Interface99: Macro library to have static and dynamic interfaces in C
 - Datatype99: Macro library to have sum types in C
+- CException: Library that implement a simple Exception mechanism (setjmp/longjmp)
 
 For now these are the only included libraries, but it can change in the future (suggestions are appreciated)
 
