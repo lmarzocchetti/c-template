@@ -15,6 +15,7 @@ include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1) # Useful for emacs/vim that don't have autoconfigure
 
 add_executable(${PROJECT_NAME} main.c)
 
