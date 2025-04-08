@@ -45,6 +45,6 @@ sources = main_source + sds_repo_sources
 executable(
   'c-template',
   sources,
-  dependencies : [stc_proj.get_variable('stc_dep'), mimalloc_lib], #, raylib_proj.get_variable('raylib_dep'), datatype99_proj.get_variable('datatype99_dep'), interface99_proj.get_variable('interface99_dep'), cexception_proj.get_variable('cexception_dep')],
+  dependencies : [stc_proj.get_variable('stc_dep')], #, mimalloc_lib, raylib_proj.get_variable('raylib_dep'), datatype99_proj.get_variable('datatype99_dep'), interface99_proj.get_variable('interface99_dep'), cexception_proj.get_variable('cexception_dep')],
   include_directories: include_directories(sds_repo_inc)
 )
