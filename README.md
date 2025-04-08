@@ -1,6 +1,9 @@
 # c-template
 Simple Meson template for C projects 
 
+# Motivation
+I like simplicity and not to do the same stuff for every project. If you don't want to use some of these libraries, is easier to delete some files than rewrite the same thing every time.
+
 # Already included libraries
 I have created this template to provide at least a minimal set of functionality to the C language.
 These libraries are included (and easily swappable or removable):
