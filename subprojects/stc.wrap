@@ -1,0 +1,4 @@
+[wrap-git]
+directory = stc
+url = https://github.com/stclib/stc.git
+revision = master

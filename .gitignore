@@ -1,6 +1,13 @@
 /build/
 /.vscode/
 /.idea/
+/.cache/
 /cmake-build-debug/
 /cmake-build-release/
-
+/external/
+/subproject/mimalloc/
+/subproject/datatype99/
+/subproject/raylib/
+/subproject/interface99/
+/subproject/stc/
+/subproject/cexception/

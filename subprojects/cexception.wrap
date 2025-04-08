@@ -1,0 +1,4 @@
+[wrap-git]
+name = cexception
+url = https://github.com/ThrowTheSwitch/CException
+revision = master
