@@ -37,29 +37,29 @@ project('c-template', 'c', default_options: ['c_std=c17', 'warning_level=2'], ve
 You can use normal Meson commands or use my script `run.sh` to build and run your project!
 
 ### With Configuration
-Use conf to configure your meson project (in Release or Debug mode): 
+Use conf to configure your meson project (in release or debug mode): 
 ```
-$ ./run.sh conf [Release|Debug]
+$ ./run.sh conf [release|debug]
 ```
 
 Use conf-build to configure and build the final executable
 ```
-$ ./run.sh conf-build [Release|Debug]
+$ ./run.sh conf-build [release|debug]
 ```
 
 Use conf-run to configure, build and run the final executable
 ```
-$ ./run.sh conf-run [Release|Debug]
+$ ./run.sh conf-run [release|debug]
 ```
 
 ### Without Configuration
 If you already run the configuration step of cmake and want only to build or run the executable:
 ```
-$ ./run.sh build
+$ ./run.sh build [release|debug]
 ```
 
 ```
-$ ./run.sh run
+$ ./run.sh run [release|debug]
 ```
 
 # Credit
