@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include <sds.h>
-#include <mimalloc.h>
 
 int main(void)
 {
@@ -23,6 +22,4 @@ int main(void)
 	sds mystring = sdsnew("Hello World!");
 	printf("%s\n", mystring);
 	sdsfree(mystring);
-
-	void* test_mi = mi_malloc(10);
 }
