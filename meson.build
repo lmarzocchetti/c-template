@@ -35,7 +35,9 @@ endif
 sds_repo_inc = './external/sds'
 sds_repo_sources = files(sds_repo_dir / 'sds.c')
 
-main_source = files('main.c')
+main_source = files(
+  'src/main.c'
+)
 
 sources = main_source + sds_repo_sources
 
