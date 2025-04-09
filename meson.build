@@ -1,5 +1,10 @@
-project('c-template', 'c', default_options: ['c_std=c17', 'warning_level=2'], version : '0.1.0')
-
+project(
+  'c-template',
+  'c',
+  default_options: ['warning_level=2'],
+  version: '0.1.0',
+)
+add_project_arguments('-std=c2x', language: 'c')
 fs = import('fs')
 cmake = import('cmake')
 
@@ -16,6 +21,10 @@ mimalloc_lib = mimalloc_proj.dependency('mimalloc')
 # Raylib
 raylib_proj = cmake.subproject('raylib')
 raylib_lib = raylib_proj.dependency('raylib')
+
+# SDL
+# sdl_proj = cmake.subproject('SDL')
+# sdl_lib = sdl_proj.dependency('SDL')
 
 # Datatype99
 datatype99_proj = cmake.subproject('datatype99')
@@ -34,9 +43,7 @@ if not fs.exists(sds_repo_dir)
   run_command('git', 'clone', 'https://github.com/antirez/sds', sds_repo_dir)
 endif
 sds_repo_inc = './external/sds'
-sds_repo_sources = files(
-  sds_repo_dir / 'sds.c'
-)
+sds_repo_sources = files(sds_repo_dir / 'sds.c')
 
 main_source = files('main.c')
 
@@ -45,6 +52,6 @@ sources = main_source + sds_repo_sources
 executable(
   'c-template',
   sources,
-  dependencies : [stc_proj.get_variable('stc_dep')], #, mimalloc_lib, raylib_proj.get_variable('raylib_dep'), datatype99_proj.get_variable('datatype99_dep'), interface99_proj.get_variable('interface99_dep'), cexception_proj.get_variable('cexception_dep')],
-  include_directories: include_directories(sds_repo_inc)
+  dependencies: [stc_proj.get_variable('stc_dep'), raylib_proj.get_variable('raylib_dep')], #, mimalloc_lib, raylib_proj.get_variable('raylib_dep'), datatype99_proj.get_variable('datatype99_dep'), interface99_proj.get_variable('interface99_dep'), cexception_proj.get_variable('cexception_dep')],
+  include_directories: include_directories(sds_repo_inc),
 )
