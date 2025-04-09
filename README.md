@@ -33,7 +33,7 @@ $ mv c-template your-project-name
 
 Set the project name in the meson.build file:
 ```
-project('c-template', 'c', default_options: ['c_std=c17', 'warning_level=2'], version : '0.1.0') -> project('your-project-name', 'c', default_options: ['c_std=c17', 'warning_level=2'], version : '0.1.0')
+project('c-template', 'c', default_options: ['warning_level=2'], version: '0.1.0') -> project('your-project-name', 'c', default_options: ['warning_level=2'], version: '0.1.0')
 ```
 
 ## Build and Run
