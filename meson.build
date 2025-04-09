@@ -1,9 +1,4 @@
-project(
-  'c-template',
-  'c',
-  default_options: ['warning_level=2'],
-  version: '0.1.0',
-)
+project('c-template', 'c', default_options: ['warning_level=2'], version: '0.1.0')
 add_project_arguments('-std=c2x', language: 'c')
 fs = import('fs')
 cmake = import('cmake')
