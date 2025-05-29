@@ -1,92 +1,62 @@
 #!/bin/sh
 
 # Check Number of Arguments
-if [[ "$#" -ne 2 ]]; then
-    echo "Usage: $0 {conf|conf-build|conf-run} {debug|release}"
+if [[ "$#" -gt 2 || "$#" -lt 1 ]]; then
+    echo "Usage: $0 {conf|conf-build|conf-run} {Debug|Release}"
     echo "Usage: $0 {build|run}"
     exit 1
 fi
 
 command=$1
-configuration=$2
+
+if [[ "$#" -eq 2 ]]; then
+    configuration=$2
+fi
 
 # Verify parameters
-if [[ "$command" != "build" && "$command" != "run" && "$command" != "conf" && "$command" != "conf-build" && "$command" != "conf-run" ]]; then
-    echo "Error: The first parameter must be 'build', 'run', 'conf', 'conf-build', 'conf-run'"
-    exit 1
+if [[ "$#" -eq 1 ]]; then
+    if [[ "$command" != "build" && "$command" != "run" ]]; then
+        echo "Error: The first parameter must be 'build' or 'run'."
+        exit 1
+    fi
+else
+    if [[ "$command" != "conf" && "$command" != "conf-build" && "$command" != "conf-run" ]]; then
+        echo "Error: The first parameter must be 'conf', 'conf-build' or 'conf-run'."
+        exit 1
+    fi
+
+    if [[ "$configuration" != "Debug" && "$configuration" != "Release" ]]; then
+        echo "Error: The second parameter must be 'Debug' or 'Release'."
+        exit 1
+    fi
 fi
 
-if [[ "$configuration" != "debug" && "$configuration" != "release" ]]; then
-    echo "Error: The second parameter must be 'debug', 'release'"
-    exit 1
-fi
-
-
-project_name=$(grep "project(" meson.build | head -1 | sed -n "s/^project('\([^']*\)'.*/\1/p")
+project_name=$(grep "project(" CMakeLists.txt | cut -d'(' -f2 | cut -d' ' -f1)
 
 # Command execution
-if [[ "$command" == "build" || "$command" == "run" ]]; then
+if [[ "$#" -eq 1 ]]; then
     case "$command" in
         build)
-            case "$configuration" in
-                debug)
-                    meson compile -C build-debug
-                    ;;
-                release)
-                    meson compile -C build-release
-                    ;;
-            esac
+            cmake --build build
             ;;
         run)
-            case "$configuration" in
-                debug)
-                    meson compile -C build-debug
-                    ./build-debug/$project_name
-                    ;;
-                release)
-                    meson compile -C build-release
-                    ./build-release/$project_name
-                    ;;
-            esac
+            cmake --build build
+            ./build/$project_name
             ;;
     esac
 else
     case "$command" in
         conf)
-            case "$configuration" in
-                debug)
-                    meson setup --buildtype debug build-debug
-                    ;;
-                release)
-                    meson setup --buildtype release build-release
-                    ;;
-            esac
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=$configuration
             ;;
         conf-build)
-            case "$configuration" in
-                debug)
-                    meson setup --buildtype debug build-debug
-                    meson compile -C build-debug
-                    ;;
-                release)
-                    meson setup --buildtype release build-release
-                    meson compile -C build-release
-                    ;;
-            esac
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=$configuration
+            cmake --build build
             ;;
         conf-run)
-            case "$configuration" in
-                debug)
-                    meson setup --buildtype debug build-debug
-                    meson compile -C build-debug
-                    ./build-debug/$project_name
-                    ;;
-                release)
-                    meson setup --buildtype release build-release
-                    meson compile -C build-release
-                    ./build-release/$project_name
-                    ;;
-            esac
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=$configuration
+            cmake --build build
+            ./build/$project_name
             ;;
     esac
 fi

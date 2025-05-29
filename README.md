@@ -1,23 +1,21 @@
 # c-template
-Simple Meson template for C projects 
-
-# Motivation
-I like simplicity and not to do the same stuff for every project. If you don't want to use some of these libraries, is easier to delete some files than rewrite the same thing every time.
+Simple CMake template for C projects using CPM
 
 # Already included libraries
 I have created this template to provide at least a minimal set of functionality to the C language.
 These libraries are included (and easily swappable or removable):
-- STC: My favourite container library, not so big like GLib but definitely not a minimalistic option
+- mlib: Library for Containers and more (like strings etc)
 - sds: Simple library to support dynamic strings
 - mimalloc: Replacement to standard malloc. I have set this to NOT replace the standard malloc, but simply import and use it
 - raylib: Fairly simple OpenGL library for 2d/3d game development or graphics
+- GLib: Container (and much more) library. (Use if you need more abstraction like Objects, Async, etc)
 - Interface99: Macro library to have static and dynamic interfaces in C
 - Datatype99: Macro library to have sum types in C
 - CException: Library that implement a simple Exception mechanism (setjmp/longjmp)
 
 For now these are the only included libraries, but it can change in the future (suggestions are appreciated)
 
-Default Active Libraries -> STC, sds
+Default Active Libraries -> mlib
 
 # Usage
 ## Setup
@@ -31,45 +29,65 @@ Rename the folder with your project name:
 $ mv c-template your-project-name
 ```
 
-Set the project name in the meson.build file:
+Set the project name in the CMakeLists.txt file:
 ```
-project('c-template', 'c', default_options: ['warning_level=2'], version: '0.1.0') -> project('your-project-name', 'c', default_options: ['warning_level=2'], version: '0.1.0')
+project(c-template C) -> project(your-project-name C)
+```
+
+### Vscode
+If vscode complains about true and false (C23 standard) add these lines to your `.vscode/c_cpp_properties.json`
+```
+{
+    "configurations": [
+        {
+            "name": "c-template",
+            "defines": [
+                "true=1",
+                "false=0"
+            ],
+            "compilerPath": "path-to-your-c-compiler",
+            "cStandard": "c23",
+            "includePath": ["${workspaceFolder}/**"],
+            "intelliSenseMode": "type-of-intellisense-based-on-compiler" 
+        }
+    ],
+    "version": 4
+}
 ```
 
 ## Build and Run
-You can use normal Meson commands or use my script `run.sh` to build and run your project!
+You can use normal CMake commands or use my script `run.sh` to build and run your project!
 
 ### With Configuration
-Use conf to configure your meson project (in release or debug mode): 
+Use conf to configure your cmake project (in Release or Debug mode): 
 ```
-$ ./run.sh conf [release|debug]
+$ ./run.sh conf [Release|Debug]
 ```
-
 Use conf-build to configure and build the final executable
 ```
-$ ./run.sh conf-build [release|debug]
+$ ./run.sh conf-build [Release|Debug]
 ```
 
 Use conf-run to configure, build and run the final executable
 ```
-$ ./run.sh conf-run [release|debug]
+$ ./run.sh conf-run [Release|Debug]
 ```
 
 ### Without Configuration
 If you already run the configuration step of cmake and want only to build or run the executable:
 ```
-$ ./run.sh build [release|debug]
+$ ./run.sh build
 ```
 
 ```
-$ ./run.sh run [release|debug]
+$ ./run.sh run
 ```
 
-# Credit
-STC: https://github.com/stclib/STC \
-mimalloc: https://github.com/microsoft/mimalloc \
-sds: https://github.com/antirez/sds \
-CException: https://github.com/ThrowTheSwitch/CException \
-Raylib: https://github.com/raysan5/raylib \
-Datatype99: https://github.com/Hirrolot/datatype99 \
-Interface99: https://github.com/hirrolot/interface99
+# Credits
+- mlib: https://github.com/P-p-H-d/mlib
+- sds: https://github.com/antirez/sds
+- mimalloc: https://github.com/microsoft/mimalloc
+- CException: https://github.com/ThrowTheSwitch/CException
+- Raylib: https://github.com/raysan5/raylib
+- Datatype99: https://github.com/Hirrolot/datatype99
+- Interface99: https://github.com/hirrolot/interface99

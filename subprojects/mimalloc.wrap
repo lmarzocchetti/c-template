@@ -1,4 +1,0 @@
-[wrap-git]
-directory = mimalloc
-url = https://github.com/microsoft/mimalloc
-revision = v3.0.3
